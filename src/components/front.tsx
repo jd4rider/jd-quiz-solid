@@ -23,11 +23,6 @@ const Front: Component = () => {
       })
   })
 
-  createEffect(() => {
-    console.log(selectedCategory());
-    console.log(startQuiz());
-  })
-
   return (
     <main class="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-green-400 to-blue-400">
       {!startQuiz() ? <form class="w-full max-w-sm" onsubmit={e => { e.preventDefault(); setStartQuiz(true) }} >
