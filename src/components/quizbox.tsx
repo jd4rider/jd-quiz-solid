@@ -15,7 +15,6 @@ const Quizbox: Component<Props> = (props: Props) => {
   const [currentQuestion, setCurrentQuestion] = createSignal(0);
 
   createRenderEffect(() => {
-    console.log(props.quizType);
     let quizType = props.quizType.toLowerCase();
     if (props.quizType == 'True / False') quizType = 'boolean';
     else if (props.quizType == 'Multiple Choice') quizType = 'multiple';
