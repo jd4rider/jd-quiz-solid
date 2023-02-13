@@ -11,8 +11,8 @@ const Front: Component = () => {
   const [numValue, setNumValue] = createSignal(10);
   const [categoryValue, setCategoryValue] = createSignal<Cat[]>([]);
   const [selectedCategory, setSelectedCategroy] = createSignal<Cat>({ id: 0, name: "Any Category" });
-  const [difficultyValue, setDifficultyValue] = createSignal("Any Difficulty");
-  const [typeValue, setTypeValue] = createSignal("Any Type");
+  const [difficultyValue, setDifficultyValue] = createSignal("Any");
+  const [typeValue, setTypeValue] = createSignal("Any");
   const [startQuiz, setStartQuiz] = createSignal(false);
 
   createRenderEffect(() => {
@@ -25,6 +25,7 @@ const Front: Component = () => {
 
   createEffect(() => {
     console.log(selectedCategory());
+    console.log(startQuiz());
   })
 
   return (
@@ -77,7 +78,7 @@ const Front: Component = () => {
               class="block w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
               value={difficultyValue()}
               onchange={(e) => setDifficultyValue((e.target as HTMLInputElement).value)}>
-              <option selected={true}>Any Difficulty</option>
+              <option selected={true}>Any</option>
               <option>Easy</option>
               <option>Medium</option>
               <option>Hard</option>
@@ -95,7 +96,7 @@ const Front: Component = () => {
               class="block w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
               value={typeValue()}
               onchange={(e) => setTypeValue((e.target as HTMLInputElement).value)}>
-              <option selected={true}>Any Type</option>
+              <option selected={true}>Any</option>
               <option>Multiple Choice</option>
               <option>True / False</option>
             </select>
@@ -110,7 +111,10 @@ const Front: Component = () => {
           </div>
         </div>
       </form> :
-        <Quizbox />}
+        <>
+          <Quizbox difficulty={difficultyValue()} quizType={typeValue()} amount={numValue()} selectedCategory={selectedCategory()} />
+        </>
+      }
     </main>
   );
 };
