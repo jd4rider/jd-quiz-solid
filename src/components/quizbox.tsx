@@ -1,5 +1,6 @@
 import { Component, createSignal, createEffect, createRenderEffect } from 'solid-js';
 import type { Cat } from './front';
+import Answers from './answers';
 
 type Props = {
   difficulty: string,
@@ -13,6 +14,8 @@ const Quizbox: Component<Props> = (props: Props) => {
   const [quizQuestions, setQuizQuestions] = createSignal([]);
   const [questionCount, setQuestionCount] = createSignal<string>();
   const [currentQuestion, setCurrentQuestion] = createSignal(0);
+  const [quizAnswers, setQuizAnswers] = createSignal([]);
+  const disabled = createSignal(false);
 
   createRenderEffect(() => {
     let quizType = props.quizType.toLowerCase();
@@ -45,6 +48,14 @@ const Quizbox: Component<Props> = (props: Props) => {
       .then(data => {
         setQuizQuestions(data.results)
         setQuestionCount(data.results.length)
+        let answersss = [];
+        for (let i in data.results) {
+          const answerss = data.results[i].incorrect_answers.concat(data.results[i].correct_answer);
+          const shuffledAnswers = answerss.sort(() => Math.random() - 0.5);
+          answersss.push(shuffledAnswers);
+        }
+        console.log(answersss);
+        setQuizAnswers(answersss);
       })
   })
 
@@ -92,6 +103,7 @@ const Quizbox: Component<Props> = (props: Props) => {
         correct=correct.clone()
         loading=loading.clone()
           />*/}
+        <Answers answers={quizAnswers()} currentQuestion={currentQuestion()} />
       </div>
 
       <div class="px-6 pt-4 pb-2 text-center">
