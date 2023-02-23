@@ -107,7 +107,7 @@ const Front: Component = () => {
         </div>
       </form> :
         <>
-          <Quizbox difficulty={difficultyValue()} quizType={typeValue()} amount={numValue()} selectedCategory={selectedCategory()} />
+          <Quizbox difficulty={difficultyValue()} quizType={typeValue()} amount={numValue()} setStartQuiz={setStartQuiz} selectedCategory={selectedCategory()} />
         </>
       }
     </main>
